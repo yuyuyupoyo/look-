@@ -29,5 +29,4 @@ async function processImages(imgOne, imgTwo) {
   }
 }
 
-// この関数を呼び出す例
 processImages(imgOne, imgTwo);
