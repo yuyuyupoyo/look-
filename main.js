@@ -1,91 +1,60 @@
-let imgOne = document.getElementsByClassName("imgOne")[0];
-let imgTwo = document.getElementsByClassName("imgOne")[1];
-imgTwo.style.display = "none";
-
-// function createImage(imgOne, imgTwo) {
-//   return new Promise((resolve, reject) => {
-//     if
-//       picOne.style.display = "none";
-//       picTwo.style.display = "block";
-//       resolve();
-//     }, 2000);
-//   });
-// }
+function createImage(imgPath) {
+  return new Promise((resolve) => {
+    try {
+      let createImagElement = document.createElement("img");
+      createImagElement.src = imgPath;
+      document.body.appendChild(createImagElement);
+      createImagElement.classList.add("images");
+      console.log(createImagElement);
+      resolve(createImagElement);
+    } catch (error) {
+      console.log(error);
+      //要修正
+    }
+  });
+}
+//createImageは画像を生成する関数
 
 function wait(ms) {
-  return new Promise((resolve, reject) => {
+  return new Promise((resolve) => {
     setTimeout(() => {
-      imgOne.style.display = "none";
-      console.log("trhetgesfae");
+      console.log("切り替え中");
       resolve();
     }, ms * 1000);
   });
 }
+//waitはms秒待機する関数。
 
-wait(2)
+function erase() {
+  let imgElement = document.querySelector(".images"); //最初のimagesを含む要素を定数に
+  if (imgElement) {
+    imgElement.style.display = "none";
+    imgElement.remove();
+    //非表示にして消す
+  }
+}
+
+//querySelectorAll for文imgelementの数だけ回してdisplay = "none";をつける
+
+createImage("pic1.jpeg")
   .then(() => {
-    imgTwo.style.display = "block";
-    console.log("uuu");
+    return wait(2);
   })
   .then(() => {
-    setTimeout(() => {
-      imgTwo.style.display = "none";
-      console.log("ppppp");
-    }, 2000);
+    erase();
+  })
+  .then(() => {
+    return createImage("pic2.jpeg");
+  })
+  .then(() => {
+    console.log("pppp");
+    return wait(2);
+  })
+  .then(() => {
+    erase();
   });
 
-// function wait(ms) {
-//   return new Promise((resolve, reject) => {
-//     if (imgOne.style.display === "block") {
-//       setTimeout(() => {
-//         imgOne.style.display = "none";
-//         imgTwo.style.display = "block";
-//         console.log("trhetgesfae");
-//         resolve();
-//       }, ms * 1000);
-//     } else {
-//       reject();
-//     }
-//   });
-// }
-
-// wait(2)
-//   .then(() => {
-//     console.log("待機が終了しました");
-//   })
-//   .catch((error) => {
-//     console.error("エラーが発生しました:", error);
-//   });
-
-// let imgOne = document.getElementsByClassName("imgOne")[0];
-// let imgTwo = document.getElementsByClassName("imgOne")[1];
-// imgTwo.style.display = "none";
-
-// function createImage(picOne, picTwo) {
-//   return new Promise((resolve) => {
-//     setTimeout(() => {
-//       picOne.style.display = "none";
-//       picTwo.style.display = "block";
-//       resolve();
-//     }, 2000);
-//   });
-// }
-
-// async function processImages(imgOne, imgTwo) {
-//   try {
-//     await createImage(imgOne, imgTwo);
-
-//     await new Promise((resolve) => {
-//       setTimeout(() => {
-//         imgTwo.style.display = "none";
-//         resolve();
-//       }, 2000);
-//     });
-//   } catch (error) {
-//     console.log("出直しな");
-//   } finally {
-//     console.log("おつかれさま");
-//   }
-// }
-
-// processImages(imgOne, imgTwo);
+//  dom操作のみで画像を表示させるコード
+//  let imgElement = document.createElement("img");
+// imgElement.src = "pic1.jpeg";srcに画像パスを埋め込むとは多分こういうこと
+// document.body.appendChild(imgElement);
