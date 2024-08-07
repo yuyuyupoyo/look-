@@ -13,7 +13,6 @@ class ImageManager {
         document.body.appendChild(imageElement);
         imageElement.classList.add("images");
         this.currentImage = imageElement;
-        console.log(imageElement);
         resolve(imageElement);
       } catch (error) {
         console.error(error);
@@ -26,7 +25,6 @@ class ImageManager {
   wait(ms) {
     return new Promise((resolve) => {
       setTimeout(() => {
-        console.log("切り替え中");
         resolve();
       }, ms * 1000);
     });
@@ -51,7 +49,6 @@ imageManager
     return imageManager.createImage("pic2.jpeg");
   })
   .then(() => {
-    console.log("pppp");
     return imageManager.wait(2);
   })
   .then(() => {
